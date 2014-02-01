@@ -83,3 +83,47 @@ has 'commissionComment' => (is => 'ro');
 
 1;
 
+=head1 NAME
+
+WebService::BambooHR::Employee - data class for holding details of one employee
+
+=head1 SYNOPSIS
+
+ $employee = WebService::BambooHR::Employee->new(
+                 firstName => 'Ford',
+                 lastName  => 'Prefect',
+                 workEmail => 'ford@betelgeuse.org',
+             );
+
+=head1 DESCRIPTION
+
+WebService::BambooHR::Employee is a class for data objects that are used
+by L<WebService::BambooHR>.
+
+It supports attributes for all of the employee fields supported by BambooHR. 
+You can get a list of these from the BambooHR documentation. The attributes
+are named exactly the same as the fields.
+
+At some point this documentation may contain at least a list of all
+the attributes, and possibly descriptions, but I'm not sure it makes
+sense to duplicate information that is better read at the source.
+
+=head1 SEE ALSO
+
+L<WebService::BambooHR>
+
+L<Employee documentation|http://www.bamboohr.com/api/documentation/employees.php>
+on BambooHR's website.
+
+=head1 AUTHOR
+
+Neil Bowers E<lt>neilb@cpan.orgE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Neil Bowers <neilb@cpan.org>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
