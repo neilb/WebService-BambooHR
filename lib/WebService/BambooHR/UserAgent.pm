@@ -1,5 +1,6 @@
 package WebService::BambooHR::UserAgent;
 
+use 5.006;
 use Moo::Role;
 use HTTP::Tiny;
 use MIME::Base64;

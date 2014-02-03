@@ -1,5 +1,6 @@
 package WebService::BambooHR::EmployeeChange;
 
+use 5.006;
 use Moo;
 
 has id           => (is => 'ro');

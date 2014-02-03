@@ -1,5 +1,6 @@
 package WebService::BambooHR;
 
+use 5.006;
 use Moo;
 use HTTP::Tiny;
 use Try::Tiny;

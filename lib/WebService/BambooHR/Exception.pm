@@ -1,5 +1,6 @@
 package WebService::BambooHR::Exception;
 
+use 5.006;
 use Moo;
 with 'Throwable';
 

@@ -1,5 +1,6 @@
 package WebService::BambooHR::Employee;
 
+use 5.006;
 use Moo;
 use overload
     q{""}    => 'as_string',
