@@ -1,5 +1,9 @@
 Revision history for Perl module WebService::BambooHR
 
+0.02 2014-02-03
+    - The changed-employees test was failing, because the data in the
+      test account had been changed.
+
 0.01 2014-02-01
     - initial release to CPAN
 
