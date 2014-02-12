@@ -106,11 +106,31 @@ by L<WebService::BambooHR>.
 
 It supports attributes for all of the employee fields supported by BambooHR. 
 You can get a list of these from the BambooHR documentation. The attributes
-are named exactly the same as the fields.
+are named exactly the same as the fields. The named fields are:
 
-At some point this documentation may contain at least a list of all
-the attributes, and possibly descriptions, but I'm not sure it makes
-sense to duplicate information that is better read at the source.
+ address1                 address2              age
+ bestEmail                birthday              bonusAmount
+ bonusComment             bonusDate             bonusReason
+ city                     commisionDate         commissionAmount
+ commissionComment        commissionDate        country
+ dateOfBirth              department            displayName
+ division                 eeo                   employeeNumber
+ employmentHistoryStatus  employmentStatus      ethnicity
+ exempt                   firstName             flsaCode
+ fullName1                fullName2             fullName3
+ fullName4                fullName5             gender
+ hireDate                 homeEmail             homePhone
+ id                       jobTitle              lastChanged
+ lastName                 location              maritalStatus
+ middleName               mobilePhone           nickname
+ payChangeReason          payGroup              payGroupId
+ payRate                  payRateEffectiveDate  payType
+ photoUploaded            rehireDate            sin
+ ssn                      standardHoursPerWeek  state
+ stateCode                status                supervisor
+ supervisorEId            supervisorId          terminationDate
+ workEmail                workPhone             workPhoneExtension
+ workPhonePlusExtension   zipcode
 
 =head1 SEE ALSO
 
