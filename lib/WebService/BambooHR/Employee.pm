@@ -132,6 +132,31 @@ are named exactly the same as the fields. The named fields are:
  workEmail                workPhone             workPhoneExtension
  workPhonePlusExtension   zipcode
 
+In addition, the following fields are supported, which aren't listed
+in the BambooHR documentation:
+
+=over 4
+
+=item selfServiceAccess
+
+Returns 'Yes' or 'No' to signify whether the employee is able to login
+to the BambooHR service.
+
+=item terminationType
+
+Returns one of 'Death', 'Voluntary', or 'Involuntary'. When someone is marked
+as terminated via the user interface, it is optional to specify the termination type.
+If not specified this will return C<undef>.
+
+=item terminationReason
+
+This might be one of the standard reasons
+('Attendance', 'Other employment', 'Performance', or 'Relocation'),
+but it may also be a custom string that was entered by the person who recorded
+the termination.
+
+=back
+
 =head1 SEE ALSO
 
 L<WebService::BambooHR>

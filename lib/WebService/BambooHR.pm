@@ -19,7 +19,7 @@ sub employee_list
     my $self     = shift;
     my @fields   = @_ > 0 ? @_ : $self->_field_list();
 
-    $self->_check_fields(@fields);
+    @fields = $self->_check_fields(@fields);
 
     my $body     = qq{<report output="xml">\n<title>test</title>\n<fields>\n}
                    .join("\n", map { qq[<field id="$_" />] } @fields)
@@ -27,8 +27,11 @@ sub employee_list
     my $response = $self->_post('reports/custom?format=json', $body);
     my $json     = $response->{content};
 
-    # Workaround for a bug in BambooHR: if you ask for 'status' you get back 'employeeStatus'
+    # Workaround for a issues in BambooHR:
+    #   - if you ask for 'status' you get back 'employeeStatus'
+    #   - if you ask for field '1610' you get back '1610.0'
     $json =~ s/"employmentStatus":/"status":/g;
+    $json =~ s/"1610.0":/"1610":/g;
 
     my $report   = decode_json($json);
     return map { WebService::BambooHR::Employee->new($_); } @{ $report->{employees} };
@@ -67,7 +70,7 @@ sub employee
     my $employee_id = shift;
     my @fields      = @_ > 0 ? @_ : $self->_field_list();
 
-    $self->_check_fields(@fields);
+    @fields = $self->_check_fields(@fields);
 
     my $url      = "employees/$employee_id?fields=".join($COMMA, @fields);
     my $response = $self->_get($url);
@@ -142,22 +145,6 @@ sub update_employee
     my $body     = $self->_employee_record($field_ref);
     my $response = $self->_post("employees/$id", $body);
 }
-
-sub _employee_record
-{
-    my $self      = shift;
-    my $field_ref = shift;
-    local $_;
-
-    return "<employee>\n  "
-                   .join("\n  ",
-                         map { qq[<field id="$_">$field_ref->{$_}</field>] }
-                         keys(%$field_ref)
-                        )
-                    ."\n"
-          ."</employee>\n";
-}
-
 
 1;
 

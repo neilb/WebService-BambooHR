@@ -102,6 +102,7 @@ my %field =
     department              => q{The employee's CURRENT department.},
     division                => q{The employee's CURRENT division.},
     eeo                     => q{The employee's EEO job category. These are defined by the U.S. Equal Employment Opportunity Commission.},
+    employeeAccess          => q{Whether the employee is allowed to access BambooHR.},
     employeeNumber          => q{Employee number (assigned by your company).},
     employmentStatus        => q{DEPRECATED. Please use "status" instead. The employee's employee status (Active or Inactive).},
     employmentHistoryStatus => q{The employee's CURRENT employment status. Options are customized by account.},
@@ -159,6 +160,16 @@ my %field =
     commisionDate           => q{This field name contains a typo, and exists for backwards compatibility.},
     commissionAmount        => q{The amount of the most recent commission.},
     commissionComment       => q{Comment about the most recent commission.},
+    1360                    => q{The termination type when an employee has been terminated.},
+    1361                    => q{The termination reason when an employee has been terminated.},
+    1610                    => q{Employee self-service access.},
+);
+
+my %field_alias =
+(
+    selfServiceAccess => '1610',
+    terminationType   => '1360',
+    terminationReason => '1361',
 );
 
 sub _check_fields
@@ -166,10 +177,19 @@ sub _check_fields
     my $self        = shift;
     my @field_names = @_;
     my @caller      = caller(1);
+    my @mapped_names;
 
+    FIELD:
     foreach my $field_name (@field_names) {
 
-        next if exists $field{$field_name};
+        if (exists($field{$field_name})) {
+            push(@mapped_names, $field_name);
+            next FIELD;
+        }
+        elsif (exists($field_alias{$field_name})) {
+            push(@mapped_names, $field_alias{ $field_name });
+            next FIELD;
+        }
 
         WebService::BambooHR::Exception->throw({
             method      => $caller[3],
@@ -181,6 +201,30 @@ sub _check_fields
         });
 
     }
+
+    return @mapped_names;
+}
+
+sub _employee_record
+{
+    my $self      = shift;
+    my $field_ref = shift;
+    my %mapped_field;
+    my $mapped_name;
+    local $_;
+
+    foreach my $field_name (keys %$field_ref) {
+        $mapped_name = $field_alias{$field_name} if exists($field_alias{$field_name});
+        $mapped_field{$mapped_name} = $field_ref->{ $field_name };
+    }
+
+    return "<employee>\n  "
+                   .join("\n  ",
+                         map { qq[<field id="$_">$mapped_field{$_}</field>] }
+                         keys(%mapped_field)
+                        )
+                    ."\n"
+          ."</employee>\n";
 }
 
 sub _field_list

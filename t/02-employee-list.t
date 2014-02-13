@@ -36,7 +36,7 @@ SKIP: {
 sub render_employees
 {
     my $employee_ref = shift;
-    my $result = "firstName|lastName|status|location|jobTitle\n";
+    my $result = "firstName|lastName|status|selfServiceAccess|location|jobTitle\n";
 
     foreach my $employee (sort by_employee_name @$employee_ref) {
         $result .= $employee->firstName
@@ -44,6 +44,8 @@ sub render_employees
                    .$employee->lastName
                    .'|'
                    .$employee->status
+                   .'|'
+                   .$employee->selfServiceAccess
                    .'|'
                    .($employee->location || '')
                    .'|'
@@ -70,126 +72,126 @@ sub read_data
 }
 
 __DATA__
-firstName|lastName|status|location|jobTitle
-Charlotte|Abbott|Active|Corporate Office|HR Specialist
-Diane|Adams|Inactive||
-Melissa|Allen|Active|Chicago|Marketing Facilitator
-Kristina|Allen|Inactive||HR Specialist
-JD|Allphin|Active|Chicago|Marketing Facilitator
-Richard|Anderson|Active|St. Louis|Development Supervisor
-Carmello|Anthony|Inactive|St. Louis|
-Tyler|Arnold|Active||
-David|Bagley|Active|St. Louis|Marketing Facilitator
-Spencer|Baird|Inactive||VP
-Jonathan|Baker|Active|St. Louis|Client Service Representative
-Amber|Baldwin|Inactive||Marketing Facilitator
-Greg|Banks|Active|St. Louis|Site Supervisor
-Tammy|Barker|Inactive||
-Trina|Barnes|Inactive||
-Jill|Barnes|Inactive||VP
-Julie|Barnes|Inactive||
-Jonathan|Barringer|Active|St. Louis|Client Service Representative
-Laura|Barry|Active||
-Marc|Bean|Active|Chicago|Site Supervisor
-Sherry|Brewer|Active||
-Kobe|Bryant|Inactive||
-George|Butler|Inactive||
-Edwin|Caldwell|Active||
-Mark|Cannon|Active|Chicago|Marketing Facilitator
-Lynsey|Card|Inactive|Franklin|Marketing Facilitator
-Marcus|Cardwell|Active|Chicago|VP
-Gary|Cerny|Inactive|Chicago|Site Supervisor
-Ralph|Charles|Inactive||
-Amy|Clark|Active||
-Matt|Clarke|Active|St. Louis|VP
-Marissa|Clemmons|Active||
-George|Clooney|Active||
-Jonathan|Cole|Inactive|Chicago|Site Supervisor
-David|Collings|Active|Chicago|Client Service Representative
-Clint|Connelly|Inactive||Marketing Facilitator
-Andrew|Davidson|Inactive||
-Samantha|Davis|Active||
-Michael|Dobson|Inactive||
-Stephanie|Dornes|Inactive||Site Supervisor
-Laurie|Durfey|Active|Chicago|Site Supervisor
-Kurt|Durkee|Active|Chicago|Developer
-Edward|Dylan|Inactive|Chicago|Site Supervisor
-Gavan|Errold|Active|St. Louis|Marketing Facilitator
-Coy|Escobedo|Active|Chicago|Developer
-Emily|Ethridge|Active|Chicago|Office Administration
-Bradly|Eyre|Active|St. Louis|Client Service Representative
-Jasmine|Farrer|Active|Chicago|Marketing Facilitator
-Robert|Fordham|Active|Corporate Office|Office Administration
-Fredré|Francisco|Inactive||
-Jaclyn|Francom|Active|Chicago|Account Representative
-Jonathan|Goodrich|Inactive|Chicago|VP
-Jessica|Hansen|Active|Chicago|Account Representative
-Veronica|Hanson|Inactive||
-Devin|Hartwell|Active|Chicago|Account Representative
-Michael|Harvey|Active|St. Louis|Account Representative
-Luke|Haslem|Inactive|Chicago|Account Representative
-Jeff|Hawkes|Active|St. Louis|Account Representative
-Jimi|Hendrix|Inactive||
-Avalon|Higginbotham|Inactive|St. Louis|Account Representative
-Katherine|Hill|Active||
-Sophie|Hollister|Inactive|St. Louis|Account Representative
-Chris|Hunter|Active|Chicago|Client Service Representative
-Maryanne|Jacobson|Active||
-Perry|Jasper|Inactive||
-James|John|Active||
-Nicholas|Johns|Inactive||
-Bob|Johnson|Inactive||
-David|Johnson|Active||
-Simon|Johnson|Active||
-Corinne|Kent|Inactive||
-Shelly|Konold|Active|Chicago|Client Service Representative
-Archie|Krammer|Active||
-Betty|Larsen|Active||
-John|LeSueur|Active||
-Lydia|Learner|Inactive||
-Mason|Marsh|Active||
-Kelly|Mayberry|Active||
-Jacob|Miller|Inactive|Chicago|Site Supervisor
-Jennifer|Miller|Inactive|Chicago|Site Supervisor
-Larry|Millner|Active||
-Erin|Monroe|Inactive|Corporate Office|VP
-Allison|Muaina|Inactive|St. Louis|Payroll Administrator
-Joshua|Ninow|Active|Chicago|Account Representative
-Samuel|Nunez|Inactive|St. Louis|Account Representative
-William|Nye|Active|St. Louis|Account Representative
-Gabe|Ogden|Active|Chicago|Account Representative
-Terrie|Orullian|Active|Chicago|Account Representative
-Chris|Parker|Inactive||
-Brooke|Petersen|Active||
-Lacey|Peterson|Active||
-Nathan|Pyper|Active|Chicago|Account Representative
-David|Quallman|Inactive||Development Supervisor
-Brian|Quick|Active|Chicago|Client Service Representative
-Rachel|Ray|Active||
-Jordan|Reeves|Active|St. Louis|Account Representative
-Matt|Reid|Inactive||
-Melvin|Reynolds|Active||
-Kodie|Romrell|Active|St. Louis|Client Service Representative
-Melanie|Sanderson|Active|St. Louis|Marketing Facilitator
-Betsy|Schow|Active|Chicago|Office Administration
-Andy|Shaw|Active|Chicago|Office Administration
-Peter|Showalter|Inactive||
-Andreas|Silva|Active|St. Louis|Office Administration
-William|Smith|Inactive||Account Representative
-Kevin|Smith|Inactive||
-Kevin|Smith|Inactive|Chicago|Site Supervisor
-Steven|Smith|Inactive|Franklin|Office Administration
-Kristi|Smith|Active||
-Sarah|Smith|Active||
-Kay|Stoddard|Active||
-Hayley|Thayn|Active|St. Louis|Office Administration
-George|Thomp|Inactive|St. Louis|
-Jayne|Thompson|Inactive||Marketing Facilitator
-Jeff|Thompson|Inactive||
-Silvia|Turner|Inactive||
-Kirk|Wensink|Inactive||
-Kirk|Wensink|Inactive|Chicago|Site Supervisor
-Dylan|Wright|Active|St. Louis|Development Supervisor
-Brian|Yack|Inactive||Client Service Representative
-Tammy|Zabcdef|Inactive||
-Eric|Zincke|Active|Chicago|Payroll Administrator
+firstName|lastName|status|selfServiceAccess|location|jobTitle
+Charlotte|Abbott|Active|No|Corporate Office|HR Specialist
+Diane|Adams|Inactive|No||
+Melissa|Allen|Active|No|Chicago|Marketing Facilitator
+Kristina|Allen|Inactive|No||HR Specialist
+JD|Allphin|Active|No|Chicago|Marketing Facilitator
+Richard|Anderson|Active|No|St. Louis|Development Supervisor
+Carmello|Anthony|Inactive|No|St. Louis|
+Tyler|Arnold|Active|No||
+David|Bagley|Active|No|St. Louis|Marketing Facilitator
+Spencer|Baird|Inactive|No||VP
+Jonathan|Baker|Active|No|St. Louis|Client Service Representative
+Amber|Baldwin|Inactive|No||Marketing Facilitator
+Greg|Banks|Active|No|St. Louis|Site Supervisor
+Tammy|Barker|Inactive|No||
+Trina|Barnes|Inactive|No||
+Jill|Barnes|Inactive|No||VP
+Julie|Barnes|Inactive|No||
+Jonathan|Barringer|Active|No|St. Louis|Client Service Representative
+Laura|Barry|Active|No||
+Marc|Bean|Active|No|Chicago|Site Supervisor
+Sherry|Brewer|Active|No||
+Kobe|Bryant|Inactive|No||
+George|Butler|Inactive|No||
+Edwin|Caldwell|Active|No||
+Mark|Cannon|Active|No|Chicago|Marketing Facilitator
+Lynsey|Card|Inactive|No|Franklin|Marketing Facilitator
+Marcus|Cardwell|Active|No|Chicago|VP
+Gary|Cerny|Inactive|No|Chicago|Site Supervisor
+Ralph|Charles|Inactive|No||
+Amy|Clark|Active|No||
+Matt|Clarke|Active|No|St. Louis|VP
+Marissa|Clemmons|Active|No||
+George|Clooney|Active|No||
+Jonathan|Cole|Inactive|No|Chicago|Site Supervisor
+David|Collings|Active|No|Chicago|Client Service Representative
+Clint|Connelly|Inactive|No||Marketing Facilitator
+Andrew|Davidson|Inactive|No||
+Samantha|Davis|Active|No||
+Michael|Dobson|Inactive|No||
+Stephanie|Dornes|Inactive|No||Site Supervisor
+Laurie|Durfey|Active|No|Chicago|Site Supervisor
+Kurt|Durkee|Active|No|Chicago|Developer
+Edward|Dylan|Inactive|No|Chicago|Site Supervisor
+Gavan|Errold|Active|No|St. Louis|Marketing Facilitator
+Coy|Escobedo|Active|No|Chicago|Developer
+Emily|Ethridge|Active|No|Chicago|Office Administration
+Bradly|Eyre|Active|No|St. Louis|Client Service Representative
+Jasmine|Farrer|Active|No|Chicago|Marketing Facilitator
+Robert|Fordham|Active|No|Corporate Office|Office Administration
+Fredré|Francisco|Inactive|No||
+Jaclyn|Francom|Active|No|Chicago|Account Representative
+Jonathan|Goodrich|Inactive|No|Chicago|VP
+Jessica|Hansen|Active|No|Chicago|Account Representative
+Veronica|Hanson|Inactive|No||
+Devin|Hartwell|Active|No|Chicago|Account Representative
+Michael|Harvey|Active|No|St. Louis|Account Representative
+Luke|Haslem|Inactive|No|Chicago|Account Representative
+Jeff|Hawkes|Active|No|St. Louis|Account Representative
+Jimi|Hendrix|Inactive|No||
+Avalon|Higginbotham|Inactive|No|St. Louis|Account Representative
+Katherine|Hill|Active|No||
+Sophie|Hollister|Inactive|No|St. Louis|Account Representative
+Chris|Hunter|Active|No|Chicago|Client Service Representative
+Maryanne|Jacobson|Active|No||
+Perry|Jasper|Inactive|No||
+James|John|Active|No||
+Nicholas|Johns|Inactive|No||
+Bob|Johnson|Inactive|No||
+David|Johnson|Active|No||
+Simon|Johnson|Active|No||
+Corinne|Kent|Inactive|No||
+Shelly|Konold|Active|No|Chicago|Client Service Representative
+Archie|Krammer|Active|No||
+Betty|Larsen|Active|No||
+John|LeSueur|Active|Yes||
+Lydia|Learner|Inactive|No||
+Mason|Marsh|Active|No||
+Kelly|Mayberry|Active|No||
+Jacob|Miller|Inactive|No|Chicago|Site Supervisor
+Jennifer|Miller|Inactive|No|Chicago|Site Supervisor
+Larry|Millner|Active|No||
+Erin|Monroe|Inactive|No|Corporate Office|VP
+Allison|Muaina|Inactive|No|St. Louis|Payroll Administrator
+Joshua|Ninow|Active|No|Chicago|Account Representative
+Samuel|Nunez|Inactive|No|St. Louis|Account Representative
+William|Nye|Active|No|St. Louis|Account Representative
+Gabe|Ogden|Active|No|Chicago|Account Representative
+Terrie|Orullian|Active|No|Chicago|Account Representative
+Chris|Parker|Inactive|No||
+Brooke|Petersen|Active|No||
+Lacey|Peterson|Active|No||
+Nathan|Pyper|Active|No|Chicago|Account Representative
+David|Quallman|Inactive|No||Development Supervisor
+Brian|Quick|Active|No|Chicago|Client Service Representative
+Rachel|Ray|Active|No||
+Jordan|Reeves|Active|No|St. Louis|Account Representative
+Matt|Reid|Inactive|No||
+Melvin|Reynolds|Active|No||
+Kodie|Romrell|Active|No|St. Louis|Client Service Representative
+Melanie|Sanderson|Active|No|St. Louis|Marketing Facilitator
+Betsy|Schow|Active|No|Chicago|Office Administration
+Andy|Shaw|Active|No|Chicago|Office Administration
+Peter|Showalter|Inactive|No||
+Andreas|Silva|Active|No|St. Louis|Office Administration
+William|Smith|Inactive|No||Account Representative
+Kevin|Smith|Inactive|No||
+Kevin|Smith|Inactive|No|Chicago|Site Supervisor
+Steven|Smith|Inactive|No|Franklin|Office Administration
+Kristi|Smith|Active|No||
+Sarah|Smith|Active|No||
+Kay|Stoddard|Active|No||
+Hayley|Thayn|Active|No|St. Louis|Office Administration
+George|Thomp|Inactive|No|St. Louis|
+Jayne|Thompson|Inactive|No||Marketing Facilitator
+Jeff|Thompson|Inactive|No||
+Silvia|Turner|Inactive|No||
+Kirk|Wensink|Inactive|No||
+Kirk|Wensink|Inactive|No|Chicago|Site Supervisor
+Dylan|Wright|Active|No|St. Louis|Development Supervisor
+Brian|Yack|Inactive|No||Client Service Representative
+Tammy|Zabcdef|Inactive|No||
+Eric|Zincke|Active|No|Chicago|Payroll Administrator

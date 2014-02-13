@@ -1,7 +1,10 @@
 Revision history for Perl module WebService::BambooHR
 
-0.03 2014-02-12
+0.03 2014-02-13
     - List all field names in Employee fields
+    - Added pseudo fields for selfServiceAccess, terminationType,
+      and terminationReason. These can only be accessed in the API
+      itself via field numbers.
 
 0.02 2014-02-03
     - The changed-employees test was failing, because the data in the
