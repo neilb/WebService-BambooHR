@@ -1,5 +1,10 @@
 Revision history for Perl module WebService::BambooHR
 
+0.04 2014-02-25
+    - The changed-employees test was failing, because the test account
+      had been changed again. Hopefully won't happen again, otherwise
+      I'll change what the test does.
+
 0.03 2014-02-13
     - List all field names in Employee fields
     - Added pseudo fields for selfServiceAccess, terminationType,
