@@ -1,10 +1,10 @@
 package WebService::BambooHR;
 
 use 5.006;
-use Moo;
-use HTTP::Tiny;
-use Try::Tiny;
-use JSON qw(decode_json);
+use Moo           2.000000;
+use HTTP::Tiny    0.045;
+use Try::Tiny     0.13;
+use JSON::MaybeXS 1.003003 qw/ decode_json /;
 
 with 'WebService::BambooHR::UserAgent';
 use WebService::BambooHR::Employee;
@@ -82,6 +82,17 @@ sub employee
     return WebService::BambooHR::Employee->new(decode_json($json));
 }
 
+sub company_report
+{
+    my $self      = shift;
+    my $report_id = shift;
+    my $url       = "reports/$report_id?format=JSON&fd=no";
+    my $response  = $self->_get($url);
+    my $json      = $response->{content};
+
+    return decode_json($json);
+}
+
 sub changed_employees
 {
     my $self    = shift;
@@ -89,19 +100,27 @@ sub changed_employees
     my $url     = "employees/changed/?since=$since";
     my @changes;
 
+
     if (@_ > 0) {
         my $type = shift;
         $url .= "&type=$type";
     }
-    my $response = $self->_get($url);
+    my $response = eval { $self->_get($url); };
+    my $json     = $response->{content};
 
-    require XML::Simple;
+    # We get it back as the following JSON:
+    #    { "employees": {
+    #           "0": {"id":"0", "action":"Deleted", "lastChanged":"2014-02-14T19:48:29+00:00"},
+    #           "2": {"id":"2", "action":"Deleted", "lastChanged":"2014-12-20T05:47:18+00:00"},
+    #           ...
+    #    }
 
-    # The ForceArray and KeyAttr options make it produce more JSON like data structure
-    # see the XML::Simple doc for more
-    my $changed_data = XML::Simple::XMLin($response->{content}, ForceArray => 1, KeyAttr => []);
+    my $hashref  = decode_json($json);
+    my $changes  = $hashref->{employees};
 
-    return map { WebService::BambooHR::EmployeeChange->new($_) } @{ $changed_data->{employee} };
+    return map { WebService::BambooHR::EmployeeChange->new($_) }
+           sort { $a->{lastChanged} cmp $b->{lastChanged} || $a->{id} <=> $b->{id} }
+           values %$changes;
 }
 
 sub add_employee
@@ -160,14 +179,14 @@ WebService::BambooHR - interface to the API for BambooHR.com
                   company => 'foobar',
                   api_key => '...'
               );
- 
+
  $id        = $bamboo->add_employee({
                   firstName => 'Bilbo',
                   lastName  => 'Baggins',
               });
 
  $employee  = $bamboo->employee($id);
- 
+
  $bamboo->update_employee($employee->id, {
      dateOfBirth => '1953-11-22',
      gender      => 'Male',
@@ -188,7 +207,7 @@ To talk to BambooHR you must first create an instance of this module:
                   company => 'mycompany',
                   api_key => $api_key,
               );
- 
+
 The B<company> field is the domain name that you use to access BambooHR.
 For example, the above company would be accessed via C<mycompany.bamboohr.com>.
 You also need an API key. See the section below on how to create one.
@@ -284,6 +303,56 @@ This is used to update one or more fields for an employee:
      bestEmail => 'bilbo@bag.end',
  });
 
+
+=head2 company_report
+
+Request a specific company report,
+which you need to have defined via the BambooHR web interface.
+
+ $report_data = $bamboo->company_report($report_id);
+
+The C<$report_id> is an integer, the internal id for the report definition.
+You can find out the id by looking at the report in the web interface
+and checking the URL, which will end in:
+
+ /reports/report.php?id=123
+
+This method returns the data as returned by Bamboo,
+rather than massaging it in any way.
+You get back a hashref with two keys in it:
+
+=over 4
+
+=item * fields - an array of hashrefs,
+each of which gives the definition of one entry in report.
+Each hashref has 3 keys: B<name> is the title of the field
+(what appears in the header when you look at the report in Bamboo);
+B<id> is the internal id string, which appears in the
+C<employees> hash described below;
+B<type> is a string that gives the type of the Bamboo field.
+
+=item * employees - the data of the report.
+An array of hashrefs, one per employee.
+The keys in each hashref are the C<id> fields from the I<fields> hashref.
+
+=back
+
+To illustrate this, here's how you'd show each employee in turn,
+using the name of the field rather than the id:
+
+ my $report_data  = $bamboo->company_report($report_id);
+ my $fieldsref    = $report_data->{fields};
+ my $employeesref = $report_data->{employees};
+ my %fieldmap     = map { ($_->{id}, $_->{name} } @$fieldsref;
+
+ foreach my $employee (@$employeesref) {
+   print "\nNext employee:\n";
+   foreach my $id (keys %$employee) {
+     printf "  %s: %s\n", $fieldmap{$id}, $employee->{$id} // '';
+   }
+ }
+
+
 =head2 employee_photo
 
 Request an employee's photo, if one has been provided:
@@ -327,6 +396,9 @@ In place of the 'action' method, you could use one of the three convenience meth
 which are named after the legal values for action:
 
  print "employee was deleted\n" if $change->deleted;
+
+The list of changes is return sorted from oldest to most recent.
+
 
 =head1 Employee objects
 

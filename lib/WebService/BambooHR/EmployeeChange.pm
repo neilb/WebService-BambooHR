@@ -3,9 +3,9 @@ package WebService::BambooHR::EmployeeChange;
 use 5.006;
 use Moo;
 
-has id           => (is => 'ro');
+has id          => (is => 'ro');
 has lastChanged => (is => 'ro');
-has action       => (is => 'ro');
+has action      => (is => 'ro');
 
 sub deleted
 {

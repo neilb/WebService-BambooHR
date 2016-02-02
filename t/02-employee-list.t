@@ -84,7 +84,7 @@ Tyler|Arnold|Active|No||
 David|Bagley|Active|No|St. Louis|Marketing Facilitator
 Spencer|Baird|Inactive|No||VP
 Jonathan|Baker|Active|No|St. Louis|Client Service Representative
-Amber|Baldwin|Inactive|No||Marketing Facilitator
+Amber|Baldwin|Inactive|No||
 Greg|Banks|Active|No|St. Louis|Site Supervisor
 Tammy|Barker|Inactive|No||
 Trina|Barnes|Inactive|No||
@@ -98,7 +98,7 @@ Kobe|Bryant|Inactive|No||
 George|Butler|Inactive|No||
 Edwin|Caldwell|Active|No||
 Mark|Cannon|Active|No|Chicago|Marketing Facilitator
-Lynsey|Card|Inactive|No|Franklin|Marketing Facilitator
+Lynsey|Card|Inactive|No||Marketing Facilitator
 Marcus|Cardwell|Active|No|Chicago|VP
 Gary|Cerny|Inactive|No|Chicago|Site Supervisor
 Ralph|Charles|Inactive|No||
@@ -132,7 +132,7 @@ Michael|Harvey|Active|No|St. Louis|Account Representative
 Luke|Haslem|Inactive|No|Chicago|Account Representative
 Jeff|Hawkes|Active|No|St. Louis|Account Representative
 Jimi|Hendrix|Inactive|No||
-Avalon|Higginbotham|Inactive|No|St. Louis|Account Representative
+Avalon|Higginbotham|Inactive|No||Account Representative
 Katherine|Hill|Active|No||
 Sophie|Hollister|Inactive|No|St. Louis|Account Representative
 Chris|Hunter|Active|No|Chicago|Client Service Representative
@@ -177,10 +177,10 @@ Betsy|Schow|Active|No|Chicago|Office Administration
 Andy|Shaw|Active|No|Chicago|Office Administration
 Peter|Showalter|Inactive|No||
 Andreas|Silva|Active|No|St. Louis|Office Administration
-William|Smith|Inactive|No||Account Representative
+William|Smith|Inactive|No||
 Kevin|Smith|Inactive|No||
 Kevin|Smith|Inactive|No|Chicago|Site Supervisor
-Steven|Smith|Inactive|No|Franklin|Office Administration
+Steven|Smith|Inactive|No||Office Administration
 Kristi|Smith|Active|No||
 Sarah|Smith|Active|No||
 Kay|Stoddard|Active|No||
