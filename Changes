@@ -1,5 +1,9 @@
 Revision history for Perl module WebService::BambooHR
 
+0.07 2016-03-05 NEILB
+    - Hopefully made the test for employeeChanges() more resilient to
+      changes in the live test data.
+
 0.06 2016-02-02 NEILB
     - Added company_report() method, which is used to get the data behind
       a custom report in Bamboo.
