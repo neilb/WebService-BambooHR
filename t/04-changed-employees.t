@@ -20,7 +20,7 @@ SKIP: {
     ok(defined($bamboo), "create BambooHR class");
 
     eval {
-        @changes = grep { $_->lastChanged lt '2016-02-02T00:00:01Z' }
+        @changes = grep { $_->lastChanged gt '2016-02-02T00:00:01Z' }
                    $bamboo->changed_employees('2016-01-01T00:00:01Z');
     };
     ok(!$@ && @changes > 0, 'get changes list');
