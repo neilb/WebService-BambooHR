@@ -33,6 +33,7 @@ has 'company' =>
 has 'custom_fields' =>
     (
         is       => 'ro',
+        default  => sub { return {} },
     );
 
 sub _get
