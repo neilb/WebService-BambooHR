@@ -14,8 +14,7 @@ my @changes;
 my $photo;
 my $expected_photo;
 
-# David Bagley
-my $EMPLOYEE_ID = 11634;
+my $EMPLOYEE_ID = 11685;
 
 SKIP: {
 
