@@ -30,6 +30,11 @@ has 'company' =>
         is       => 'ro',
     );
 
+has 'custom_fields' =>
+    (
+        is       => 'ro',
+    );
+
 sub _get
 {
     my $self     = shift;
@@ -229,6 +234,8 @@ sub _employee_record
 
 sub _field_list
 {
+    my $self = shift;
+    %field = ( %field, %{ $self->custom_fields } );
     return keys %field;
 }
 

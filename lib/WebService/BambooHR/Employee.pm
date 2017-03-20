@@ -85,6 +85,22 @@ has 'workPhoneExtension' => (is => 'ro');
 has 'workPhonePlusExtension' => (is => 'ro');
 has 'zipcode' => (is => 'ro');
 
+sub BUILD {
+    my ( $self, $args ) = @_;
+
+    for my $attribute ( grep { /^custom/ } keys %{$args} ) {
+        $self->{$attribute} = $args->{$attribute};
+
+        my $method_template = qq(
+sub $attribute {
+    my \$self = shift;
+    \@_ ? \$self->{$attribute}=\$_[0] : \$self->{$attribute};
+}
+);
+        eval("$method_template; 1");
+    }
+}
+
 1;
 
 =head1 NAME
