@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use LWP::Online ':skip_all';
-use Test::More 0.88 tests => 8;
+use Test::More 0.88 tests => 9;
 use WebService::BambooHR;
 my $domain             = 'testperl';
 my $api_key            = 'bfb359256c9d9e26b37309420f478f03ec74599b';
@@ -14,9 +14,12 @@ my $employee;
 
 SKIP: {
 
-    my $bamboo = WebService::BambooHR->new(
-                        company => $domain,
-                        api_key => $api_key);
+    my $bamboo =
+        WebService::BambooHR->new(
+                       company       => $domain,
+                       api_key       => $api_key,
+                       custom_fields => { customShirtSize => q{Shirt size}, },
+        );
     ok(defined($bamboo), "create BambooHR class");
 
     eval {
@@ -29,6 +32,7 @@ SKIP: {
     ok($employee->status eq 'Active',    'status');
     ok($employee->location eq 'Chicago', 'location');
     ok($employee->selfServiceAccess eq 'No', 'self-service access');
+    ok(defined $employee->customShirtSize, 'custom field found');
 
     eval {
         $employee = $bamboo->employee(40345, $INVALID_FIELD_NAME);
