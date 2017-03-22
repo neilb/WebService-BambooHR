@@ -92,6 +92,8 @@ sub BUILD {
         my $safe_attribute = $attribute =~ s/[^A-Za-z_0-9]//rg;
         $self->{$attribute} = $args->{$attribute};
 
+        next if $self->can($safe_attribute);
+
         my $method_template = qq(
 sub $safe_attribute {
     my \$self = shift;
