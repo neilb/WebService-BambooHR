@@ -89,12 +89,13 @@ sub BUILD {
     my ( $self, $args ) = @_;
 
     for my $attribute ( grep { /^custom/ } keys %{$args} ) {
+        my $safe_attribute = $attribute =~ s/[^A-Za-z_0-9]//rg;
         $self->{$attribute} = $args->{$attribute};
 
         my $method_template = qq(
-sub $attribute {
+sub $safe_attribute {
     my \$self = shift;
-    \@_ ? \$self->{$attribute}=\$_[0] : \$self->{$attribute};
+    \@_ ? \$self->{'$attribute'}=\$_[0] : \$self->{'$attribute'};
 }
 );
         eval("$method_template; 1");
