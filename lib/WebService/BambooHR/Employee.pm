@@ -85,6 +85,25 @@ has 'workPhoneExtension' => (is => 'ro');
 has 'workPhonePlusExtension' => (is => 'ro');
 has 'zipcode' => (is => 'ro');
 
+sub BUILD {
+    my ( $self, $args ) = @_;
+
+    for my $attribute ( grep { /^custom/ } keys %{$args} ) {
+        my $safe_attribute = $attribute =~ s/[^A-Za-z_0-9]//rg;
+        $self->{$attribute} = $args->{$attribute};
+
+        next if $self->can($safe_attribute);
+
+        my $method_template = qq(
+sub $safe_attribute {
+    my \$self = shift;
+    \@_ ? \$self->{'$attribute'}=\$_[0] : \$self->{'$attribute'};
+}
+);
+        eval("$method_template; 1");
+    }
+}
+
 1;
 
 =head1 NAME
